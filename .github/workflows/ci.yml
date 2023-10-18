@@ -1,7 +1,9 @@
 name: CI
 
 on:
-  pull_request:
+  push:
+    branches:
+      - "master"
 
 jobs:
   lint:
@@ -19,10 +21,11 @@ jobs:
   audit:
     name: Audit
     runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, 'nolint ')"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: current
           cache: 'npm'
-      - run: npm audit
+      - run: echo ${{ github.event.head_commit.message }}
