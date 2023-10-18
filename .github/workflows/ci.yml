@@ -21,7 +21,7 @@ jobs:
   audit:
     name: Audit
     runs-on: ubuntu-latest
-    if: "contains(github.event.head_commit.message, 'nolint ')"
+    if: "!contains(github.event.head_commit.message, 'nolint ')"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
